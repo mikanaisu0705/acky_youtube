@@ -33,9 +33,9 @@
       background: linear-gradient(180deg, #70d6ff 0%, #a0e6ff 40%, #ffd4e5 100%);
       min-height: 100vh;
       display: flex;
-      justify-content: center;
+      flex-direction: column;
       align-items: center;
-      padding: 40px 15px;
+      padding: 80px 15px 40px;
       color: var(--text-dark);
       position: relative;
       overflow-x: hidden;
@@ -63,6 +63,51 @@
       filter: blur(40px);
     }
 
+    /* ==========================================
+       右上の固定ナビゲーションタブ
+    ========================================== */
+    .top-nav {
+      position: fixed;
+      top: 15px;
+      right: 15px;
+      z-index: 1000;
+      display: flex;
+      gap: 6px;
+      background: rgba(255, 255, 255, 0.95);
+      padding: 6px 10px;
+      border-radius: 50px;
+      border: 3px solid #ffffff;
+      box-shadow: 0 8px 20px rgba(0, 160, 230, 0.25);
+      backdrop-filter: blur(8px);
+    }
+
+    .nav-btn {
+      background: transparent;
+      border: none;
+      padding: 8px 14px;
+      border-radius: 20px;
+      font-weight: 900;
+      font-size: 0.85rem;
+      color: var(--text-dark);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .nav-btn:hover {
+      background: #e0f7fa;
+      color: #00b0ff;
+    }
+
+    .nav-btn.active {
+      background: linear-gradient(135deg, #ff4081, #ff80ab);
+      color: #ffffff;
+      box-shadow: 0 4px 10px rgba(255, 64, 129, 0.3);
+    }
+
+    /* ==========================================
+       メインコンテナ
+    ========================================== */
     .container {
       max-width: 580px;
       width: 100%;
@@ -153,6 +198,21 @@
       0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
       40% { transform: translateY(-6px); }
       60% { transform: translateY(-3px); }
+    }
+
+    /* タブ切り替え制御 */
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+      animation: fadeIn 0.4s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     .intro-text {
@@ -288,6 +348,127 @@
       border: 1px solid #e0f7fa;
     }
 
+    /* ==========================================
+       目標プログレスバー スタイル
+    ========================================== */
+    .goal-box {
+      background: #ffffff;
+      border: 3px solid #ff80ab;
+      border-radius: 24px;
+      padding: 18px;
+      margin-bottom: 20px;
+      box-shadow: 0 6px 16px rgba(255, 101, 150, 0.15);
+    }
+
+    .goal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: 900;
+      font-size: 0.95rem;
+      color: #ff4081;
+      margin-bottom: 10px;
+    }
+
+    .goal-bar-bg {
+      background: #ffe4ec;
+      height: 22px;
+      border-radius: 50px;
+      overflow: hidden;
+      position: relative;
+      border: 2px solid #ffffff;
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .goal-bar-fill {
+      background: linear-gradient(90deg, #ff4081, #ff80ab);
+      height: 100%;
+      border-radius: 50px;
+      transition: width 0.8s ease-in-out;
+      position: relative;
+    }
+
+    .goal-text {
+      margin-top: 8px;
+      font-size: 0.85rem;
+      font-weight: 800;
+      color: #78909c;
+    }
+
+    /* ==========================================
+       ギフト企画専用スタイル
+    ========================================== */
+    .gift-card {
+      background: linear-gradient(135deg, #fff0f5, #ffe4ec);
+      border: 4px solid #ffffff;
+      border-radius: 28px;
+      padding: 24px 20px;
+      box-shadow: 0 8px 22px rgba(255, 64, 129, 0.15);
+      text-align: left;
+      margin-bottom: 25px;
+    }
+
+    .gift-card h2 {
+      font-size: 1.3rem;
+      color: #ff4081;
+      text-align: center;
+      margin-bottom: 18px;
+      font-weight: 900;
+    }
+
+    .gift-target-badge {
+      background: #ff4081;
+      color: #ffffff;
+      text-align: center;
+      padding: 10px;
+      border-radius: 18px;
+      font-weight: 900;
+      font-size: 1rem;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 12px rgba(255, 64, 129, 0.3);
+    }
+
+    .gift-step-list {
+      list-style: none;
+      margin-bottom: 20px;
+    }
+
+    .gift-step-item {
+      background: #ffffff;
+      padding: 14px 16px;
+      border-radius: 18px;
+      margin-bottom: 10px;
+      font-weight: 800;
+      font-size: 0.95rem;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .step-num {
+      background: #ffd54f;
+      color: #5d4037;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      flex-shrink: 0;
+    }
+
+    .gift-notes {
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 16px;
+      padding: 14px;
+      font-size: 0.85rem;
+      color: #616161;
+      font-weight: 800;
+      line-height: 1.5;
+    }
+
     footer {
       margin-top: 25px;
       font-size: 0.85rem;
@@ -332,6 +513,12 @@
 </head>
 <body>
 
+  <nav class="top-nav">
+    <button class="nav-btn active" onclick="switchTab('home')">🏠 ホーム</button>
+    <button class="nav-btn" onclick="switchTab('news')">📢 お知らせ</button>
+    <button class="nav-btn" onclick="switchTab('gift')">🎁 ギフト企画</button>
+  </nav>
+
   <audio id="bgm" loop preload="auto">
     <source src="ピグパーティ BGM メインテーマ.m4a" type="audio/mp4">
   </audio>
@@ -353,40 +540,100 @@
       <div class="badge-target">🎯 目標：ピグパ公認ライバー！</div>
     </header>
 
-    <p class="intro-text">
-      ピグパーティーの最新アプデ・無料リコ＆チケ回収・ガチャ試着レビューを最速でお届け中！✨
-    </p>
+    <div id="tab-home" class="tab-content active">
+      <p class="intro-text">
+        ピグパーティーの最新アプデ・無料リコ＆チケ回収・ガチャ試着レビューを最速でお届け中！✨
+      </p>
 
-    <div class="links-container">
-      <a href="https://www.youtube.com/@acky-pigparty" target="_blank" class="btn btn-youtube">
-        ▶ YouTubeチャンネルはこちら
-      </a>
-      <a href="https://x.com/acky_youtube" target="_blank" class="btn btn-x">
-        𝕏 (旧Twitter) アカウントはこちら
-      </a>
-    </div>
-
-    <div class="info-box">
-      <h2>💡 発信中の最新コンテンツ</h2>
-      <ul class="info-list">
-        <li><span class="check-icon">✓</span> 新ガチャ最速試着＆動き検証</li>
-        <li><span class="check-icon">✓</span> 無料リコ・ガチャチケ稼ぎの裏ワザ</li>
-        <li><span class="check-icon">✓</span> アプデ＆イベント最新情報まとめ</li>
-        <li><span class="check-icon">✓</span> 復刻・リトライガチャ徹底解説</li>
-      </ul>
-    </div>
-
-    <div class="x-feed-container">
-      <div class="x-feed-title">📢 𝕏 (旧Twitter) 最新投稿</div>
-      <div class="x-timeline-wrapper">
-        <a class="twitter-timeline" 
-           data-height="480" 
-           data-theme="light" 
-           data-chrome="noheader nofooter transparent"
-           href="https://twitter.com/acky_youtube?ref_src=twsrc%5Etfw">
-           Posts from @acky_youtube
+      <div class="links-container">
+        <a href="https://www.youtube.com/@acky-pigparty" target="_blank" class="btn btn-youtube">
+          ▶ YouTubeチャンネルはこちら
+        </a>
+        <a href="https://x.com/acky_youtube" target="_blank" class="btn btn-x">
+          𝕏 (旧Twitter) アカウントはこちら
         </a>
       </div>
+
+      <div class="info-box">
+        <h2>💡 発信中の最新コンテンツ</h2>
+        <ul class="info-list">
+          <li><span class="check-icon">✓</span> 新ガチャ最速試着＆動き検証</li>
+          <li><span class="check-icon">✓</span> 無料リコ・ガチャチケ稼ぎの裏ワザ</li>
+          <li><span class="check-icon">✓</span> アプデ＆イベント最新情報まとめ</li>
+          <li><span class="check-icon">✓</span> 復刻・リトライガチャ徹底解説</li>
+        </ul>
+      </div>
+    </div>
+
+    <div id="tab-news" class="tab-content">
+      <div class="x-feed-container">
+        <div class="x-feed-title">📢 𝕏 (旧Twitter) 最新投稿</div>
+        <div class="x-timeline-wrapper">
+          <a class="twitter-timeline" 
+             data-height="480" 
+             data-theme="light" 
+             data-chrome="noheader nofooter transparent"
+             href="https://twitter.com/acky_youtube?ref_src=twsrc%5Etfw">
+             Posts from @acky_youtube
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div id="tab-gift" class="tab-content">
+      
+      <div class="goal-box">
+        <div class="goal-header">
+          <span>🔥 目標1000人達成メーター</span>
+          <span id="sub-count-text">60 / 1,000人</span>
+        </div>
+        <div class="goal-bar-bg">
+          <div class="goal-bar-fill" id="goal-bar" style="width: 6%;"></div>
+        </div>
+        <div class="goal-text">達成まであと <strong id="sub-left-text" style="color:#ff4081;">940人</strong>！応援よろしくお願いします！</div>
+      </div>
+
+      <div class="gift-card">
+        <h2>🎁 登録者1000人達成 ギフト配布企画</h2>
+        
+        <div class="gift-target-badge">
+          目標期限：11月30日までに1000人！
+        </div>
+
+        <p style="font-weight: 800; font-size: 0.95rem; margin-bottom: 15px; color: #455a64;">
+          日頃の感謝を込めて、YouTubeのチャンネル登録者が1000人を達成したタイミングで豪華ギフト配布企画を開催します！
+        </p>
+
+        <h3 style="font-size: 1.05rem; color: #ff4081; margin-bottom: 10px; font-weight: 900;">【対象アイテム】</h3>
+        <p style="font-weight: 800; font-size: 0.95rem; margin-bottom: 20px; background: #fff; padding: 10px 14px; border-radius: 14px; display: inline-block;">
+          ✨ DOLL vol.47 -Black＆Pink- ガチャアイテム
+        </p>
+
+        <h3 style="font-size: 1.05rem; color: #ff4081; margin-bottom: 10px; font-weight: 900;">【応募・参加方法】</h3>
+        <ul class="gift-step-list">
+          <li class="gift-step-item">
+            <span class="step-num">1</span>
+            <span>YouTube「ピグパ速報のあっきー」をチャンネル登録！</span>
+          </li>
+          <li class="gift-step-item">
+            <span class="step-num">2</span>
+            <span>配布企画のShorts動画に高評価＆コメント！</span>
+          </li>
+          <li class="gift-step-item">
+            <span class="step-num">3</span>
+            <span>コメント欄に「欲しいガチャ」を書いてね💬</span>
+          </li>
+        </ul>
+
+        <div class="gift-notes">
+          ※ショップ開催期間内に1000人を達成しなかった場合は、別のガチャアイテムに変更となります。<br>
+          ※本企画はYouTubeおよびサイバーエージェント公式とは一切関係ありません。
+        </div>
+      </div>
+
+      <a href="https://www.youtube.com/@acky-pigparty" target="_blank" class="btn btn-youtube">
+        ▶ YouTubeで今すぐ応募・応援する！
+      </a>
     </div>
 
     <footer>
@@ -397,6 +644,38 @@
   <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
   <script>
+    /* ==========================================
+       登録者数の数字変更（ここを変えるだけでバーが自動更新されます）
+    ========================================== */
+    const currentSubscribers = 169; // ← 登録者が増えたらこの数字を変更してください
+    const targetSubscribers = 1000;
+
+    function updateGoalBar() {
+      const percentage = Math.min((currentSubscribers / targetSubscribers) * 100, 100);
+      const leftCount = Math.max(targetSubscribers - currentSubscribers, 0);
+
+      document.getElementById('sub-count-text').textContent = `${currentSubscribers} / ${targetSubscribers.toLocaleString()}人`;
+      document.getElementById('goal-bar').style.width = `${percentage}%`;
+      document.getElementById('sub-left-text').textContent = `${leftCount.toLocaleString()}人`;
+    }
+
+    // 初回実行
+    updateGoalBar();
+
+    /* タブ切り替え処理 */
+    function switchTab(tabName) {
+      document.querySelectorAll('.tab-content').forEach(el => {
+        el.classList.remove('active');
+      });
+      document.querySelectorAll('.nav-btn').forEach(el => {
+        el.classList.remove('active');
+      });
+
+      document.getElementById('tab-' + tabName).classList.add('active');
+      event.currentTarget.classList.add('active');
+    }
+
+    /* BGM処理 */
     const bgm = document.getElementById('bgm');
     const bgmBtn = document.getElementById('bgmBtn');
     const bgmText = document.getElementById('bgmText');
@@ -405,7 +684,6 @@
     let isPlaying = false;
     bgm.volume = 0.4;
 
-    // 最初はアニメーションを停止状態に
     bgmIcon.style.animationPlayState = "paused";
 
     function playAudio() {
@@ -419,7 +697,6 @@
       });
     }
 
-    // 画面のどこかを1回タップ/クリックしたら再生スタート
     const startAudioOnFirstTouch = () => {
       if (!isPlaying) {
         playAudio();
@@ -431,7 +708,6 @@
     document.addEventListener('click', startAudioOnFirstTouch);
     document.addEventListener('touchstart', startAudioOnFirstTouch);
 
-    // ボタン直接タップでのON/OFF切り替え
     bgmBtn.addEventListener('click', (e) => {
       e.stopPropagation();
       if (isPlaying) {
