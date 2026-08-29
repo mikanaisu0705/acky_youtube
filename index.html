@@ -654,7 +654,7 @@
       <div class="goal-box">
         <div class="goal-header">
           <span>🔥 目標1000人達成メーター</span>
-          <span id="sub-count-text">171 / 1,000人</span>
+          <span id="sub-count-text">60 / 1,000人</span>
         </div>
         <div class="goal-bar-bg">
           <div class="goal-bar-fill" id="goal-bar" style="width: 6%;"></div>
@@ -713,20 +713,63 @@
   <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
   <script>
-    /* 登録者数の数字変更（ここを変えるだけでバーが自動更新されます） */
-    const currentSubscribers = 172;
+    /* ==========================================
+       YouTube API設定 ＆ 1日1回更新処理
+    ========================================== */
+    const YOUTUBE_API_KEY = "AIzaSyA--ad1UoQQaytqqz9ndpTnV8kmVZpMKVQ"; // Google Cloudで取得したAPIキーを入力
+    const CHANNEL_ID = "UC89KDr20ySgECzT46y8k17g";  // チャンネルIDを入力（@acky-pigpartyのUCから始まるID）
     const targetSubscribers = 1000;
+    let defaultSubscribers = 60; // 万が一API通信に失敗したときの初期値
 
-    function updateGoalBar() {
-      const percentage = Math.min((currentSubscribers / targetSubscribers) * 100, 100);
-      const leftCount = Math.max(targetSubscribers - currentSubscribers, 0);
+    function renderGoalBar(subCount) {
+      const percentage = Math.min((subCount / targetSubscribers) * 100, 100);
+      const leftCount = Math.max(targetSubscribers - subCount, 0);
 
-      document.getElementById('sub-count-text').textContent = `${currentSubscribers} / ${targetSubscribers.toLocaleString()}人`;
+      document.getElementById('sub-count-text').textContent = `${subCount.toLocaleString()} / ${targetSubscribers.toLocaleString()}人`;
       document.getElementById('goal-bar').style.width = `${percentage}%`;
       document.getElementById('sub-left-text').textContent = `${leftCount.toLocaleString()}人`;
     }
 
-    updateGoalBar();
+    async function fetchSubscriberCount() {
+      const lastFetchTime = localStorage.getItem('last_sub_fetch_time');
+      const cachedSubCount = localStorage.getItem('cached_sub_count');
+      const now = new Date().getTime();
+      const ONE_DAY_MS = 24 * 60 * 60 * 1000; // 24時間のミリ秒
+
+      // キャッシュが存在し、取得から24時間経っていない場合は保存済みの値を使用
+      if (lastFetchTime && cachedSubCount && (now - lastFetchTime < ONE_DAY_MS)) {
+        renderGoalBar(parseInt(cachedSubCount, 10));
+        return;
+      }
+
+      // APIキー未設定時は初期値を描画
+      if (YOUTUBE_API_KEY === "YOUR_YOUTUBE_API_KEY") {
+        renderGoalBar(defaultSubscribers);
+        return;
+      }
+
+      // 24時間以上経過している場合のみAPIリクエストを送信（API節約）
+      try {
+        const url = `https://www.googleapis.com/youtube/v3/channels?part=statistics&id=${CHANNEL_ID}&key=${YOUTUBE_API_KEY}`;
+        const response = await fetch(url);
+        const data = await response.json();
+
+        if (data.items && data.items.length > 0) {
+          const count = parseInt(data.items[0].statistics.subscriberCount, 10);
+          localStorage.setItem('cached_sub_count', count);
+          localStorage.setItem('last_sub_fetch_time', now);
+          renderGoalBar(count);
+        } else {
+          renderGoalBar(cachedSubCount ? parseInt(cachedSubCount, 10) : defaultSubscribers);
+        }
+      } catch (error) {
+        console.error("YouTube API取得エラー:", error);
+        renderGoalBar(cachedSubCount ? parseInt(cachedSubCount, 10) : defaultSubscribers);
+      }
+    }
+
+    // 初回読み込み時に実行
+    fetchSubscriberCount();
 
     /* タブ切り替え処理 */
     function switchTab(tabName) {
