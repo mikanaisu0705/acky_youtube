@@ -257,6 +257,18 @@
                   0 4px 0px #111111;
     }
 
+    .btn-discord {
+      background: linear-gradient(135deg, #5865F2, #7289da);
+      box-shadow: 0 8px 20px rgba(88, 101, 242, 0.35),
+                  0 4px 0px #3b42a0;
+    }
+
+    .btn-form {
+      background: linear-gradient(135deg, #00b0ff, #00e5ff);
+      box-shadow: 0 8px 20px rgba(0, 176, 255, 0.35),
+                  0 4px 0px #0081cb;
+    }
+
     .btn:hover {
       transform: translateY(-4px) scale(1.02);
     }
@@ -319,6 +331,40 @@
       font-size: 0.85rem;
       flex-shrink: 0;
       box-shadow: 0 3px 8px rgba(0, 145, 234, 0.3);
+    }
+
+    /* ==========================================
+       撮影班＆アンケートセクション スタイル
+    ========================================== */
+    .section-card {
+      background: #ffffff;
+      border: 4px solid #b2ebf2;
+      border-radius: 28px;
+      padding: 24px 20px;
+      box-shadow: 0 8px 20px rgba(0, 176, 255, 0.12);
+      text-align: left;
+      margin-bottom: 30px;
+    }
+
+    .section-card h2 {
+      font-size: 1.3rem;
+      color: #00b0ff;
+      text-align: center;
+      margin-bottom: 14px;
+      font-weight: 900;
+    }
+
+    .recruitment-badge {
+      display: inline-block;
+      background: #ffe082;
+      color: #5d4037;
+      padding: 6px 16px;
+      border-radius: 50px;
+      font-weight: 900;
+      font-size: 0.85rem;
+      margin-bottom: 14px;
+      border: 2px solid #ffffff;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.08);
     }
 
     .x-feed-container {
@@ -554,6 +600,29 @@
         </a>
       </div>
 
+      <div class="section-card">
+        <h2>🎬 撮影班募集中！</h2>
+        <div style="text-align: center;">
+          <span class="recruitment-badge">📌 応募条件：12歳以上</span>
+        </div>
+        <p style="font-weight: 800; font-size: 0.9rem; line-height: 1.6; color: #455a64; margin-bottom: 16px;">
+          一緒に動画制作や配信企画を盛り上げてくれる撮影メンバーを募集しています！条件を満たしている方は、公式Discordよりご応募ください✨
+        </p>
+        <a href="https://discord.gg/D9qzEZCph5" target="_blank" class="btn btn-discord">
+          💬 撮影班の応募（Discord）はこちら
+        </a>
+      </div>
+
+      <div class="section-card">
+        <h2>💬 ご要望・改善点フィードバック</h2>
+        <p style="font-weight: 800; font-size: 0.9rem; line-height: 1.6; color: #455a64; margin-bottom: 16px;">
+          チャンネルやサイトに関する「こんな動画が見たい！」「ここを改善してほしい」といった意見・ご要望をお待ちしています！
+        </p>
+        <a href="https://forms.gle/y7P8SR2Y96SHU4Wj9" target="_blank" class="btn btn-form">
+          📋 フィードバックアンケートに答える
+        </a>
+      </div>
+
       <div class="info-box">
         <h2>💡 発信中の最新コンテンツ</h2>
         <ul class="info-list">
@@ -585,7 +654,7 @@
       <div class="goal-box">
         <div class="goal-header">
           <span>🔥 目標1000人達成メーター</span>
-          <span id="sub-count-text">60 / 1,000人</span>
+          <span id="sub-count-text">171 / 1,000人</span>
         </div>
         <div class="goal-bar-bg">
           <div class="goal-bar-fill" id="goal-bar" style="width: 6%;"></div>
@@ -644,10 +713,8 @@
   <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
   <script>
-    /* ==========================================
-       登録者数の数字変更（ここを変えるだけでバーが自動更新されます）
-    ========================================== */
-    const currentSubscribers = 169; // ← 登録者が増えたらこの数字を変更してください
+    /* 登録者数の数字変更（ここを変えるだけでバーが自動更新されます） */
+    const currentSubscribers = 60;
     const targetSubscribers = 1000;
 
     function updateGoalBar() {
@@ -659,7 +726,6 @@
       document.getElementById('sub-left-text').textContent = `${leftCount.toLocaleString()}人`;
     }
 
-    // 初回実行
     updateGoalBar();
 
     /* タブ切り替え処理 */
